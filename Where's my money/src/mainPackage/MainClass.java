@@ -1,10 +1,10 @@
 package mainPackage;
 
-import frontendUI.frontendUI;
+import frontendUI.FrontendUI;
 
 public class MainClass {
 	public static void main(String[] args)
 	{
-		frontendUI ui = new frontendUI(false);
+		FrontendUI ui = new FrontendUI(false);
 	}
 }
