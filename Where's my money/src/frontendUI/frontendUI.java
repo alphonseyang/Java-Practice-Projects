@@ -5,32 +5,44 @@ import javax.swing.*;
 public class FrontendUI {
 	public FrontendUI(boolean remembered)
 	{	
-		mainFrame = new MainFrame(this);
+		mainFramePage = new MainFramePage(this);
 		
 		if (!remembered)
-			getSignInPage();
+			setUpSignInPage();
 		else			
-			loadPersonalInfo();
+			setUpUserInformationPage();
 	}
 	
-	private void getSignInPage()
-	{	
-		signInPage = new SignInPage(mainFrame.getMainFrame().getWidth(), mainFrame.getMainFrame().getHeight(), this);
-		
-		mainFrame.getMainFrame().add(signInPage.getSignInPanel());
-		mainFrame.getMainFrame().repaint();
-	}
-	
-	public JFrame getMainFrame()
+	public MainFramePage getMainFramePage()
 	{
-		return mainFrame.getMainFrame();
+		return mainFramePage;
+	}
+	
+	public SignInPage getSignInPage()
+	{
+		return signInPage;
+	}
+	
+	public void setUpSignInPage()
+	{	
+		if (signInPage == null)
+		{
+			signInPage = new SignInPage(mainFramePage.getMainFrame().getWidth(), mainFramePage.getMainFrame().getHeight(), this);
+		}
+		
+		mainFramePage.setUpSignInPage();
+	}
+	
+	public void removeSignInPage()
+	{
+		mainFramePage.removeSignInPage();
 	}
 
-	private void loadPersonalInfo()
+	public void setUpUserInformationPage()
 	{
 		
 	}
 	
-	private MainFrame mainFrame;
+	private MainFramePage mainFramePage;
 	private SignInPage signInPage;
 }

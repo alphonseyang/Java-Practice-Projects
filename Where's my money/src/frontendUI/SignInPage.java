@@ -3,8 +3,10 @@ package frontendUI;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -12,6 +14,9 @@ import javax.swing.JTextField;
 public class SignInPage {
 	public SignInPage(int width, int height, FrontendUI feptr)
 	{
+		fakeUserData = new HashMap();
+		fakeUserData.put("abc", "123");
+		
 		panelName = "SignIn";
 		this.feptr = feptr;
 		
@@ -27,15 +32,15 @@ public class SignInPage {
 			} 
 		} );
 		
-		JTextField userNameField =new JTextField(); 
-		JPasswordField passwordFiled =new JPasswordField(); 
+		userNameField =new JTextField(); 
+		pwdField =new JPasswordField(); 
 		userNameField.setBounds(50,150,150,20); 
-		passwordFiled.setBounds(50,250,150,20);
+		pwdField.setBounds(50,250,150,20);
 		
 		
 		signInPanel.add(signInButton);
 		signInPanel.add(userNameField);
-		signInPanel.add(passwordFiled);
+		signInPanel.add(pwdField);
 		
 		signInPanel.setLayout(null);   //this to disable the default flowLayout
 	}
@@ -47,9 +52,20 @@ public class SignInPage {
 	
 	private void pressSignInButton()
 	{
-		feptr.getMainFrame().remove(this.signInPanel);
-		feptr.getMainFrame().revalidate();
-		feptr.getMainFrame().repaint();
+		String userName = userNameField.getText(); 
+		String pwd = new String(pwdField.getPassword());
+		
+		if (fakeUserData.keySet().contains(userName) && fakeUserData.get(userName).equals(pwd))
+		{
+			// user log in
+			feptr.removeSignInPage();
+			feptr.setUpUserInformationPage();
+		}
+		else
+		{
+			//promot a window 
+			System.out.println("error");
+		}
 	}
 	
 	private JPanel signInPanel;
@@ -59,4 +75,5 @@ public class SignInPage {
 	private FrontendUI feptr;
 	private String panelName;
 	
+	private HashMap fakeUserData;
 }
